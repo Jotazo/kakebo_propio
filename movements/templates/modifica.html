@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %} Modificar {% endblock %}
+
+{% block mi_precioso_bloque_de_formato %}
+
+<div class="formwrapper">
+    <h2 class="title">Modifica Registro</h2>
+    <form action="{{ registro[0]['id'] }}" method="POST" novalidate>
+        {{ form.csrf_token }}
+        {{ form.idhidden(value=registro[0]['id']) }}
+        <div class="form-field">
+            {{ form.fx.label }}
+            {{ form.fx(value=registro[0]['fecha']) }}
+            {% for error in form.fx.errors %}
+                <p>{{ error }}</p>
+            {% endfor %}
+        </div>
+        <div class="form-field">
+            {{ form.concepto.label }}
+            {{ form.concepto(value=registro[0]['concepto']) }}
+            {% for error in form.concepto.errors %}
+                <p>{{ error }}</p>
+            {% endfor %}
+        </div>
+        <div class="form-field">
+            {{ form.cantidad.label }}
+            {{ form.cantidad(value=registro[0]['cantidad']) }}
+            {% for error in form.cantidad.errors %}
+                <p>{{ error }}</p>
+            {% endfor %} 
+        </div>
+        {{ form.submit }}
+    </form>
+</div>
+
+{%  endblock %}

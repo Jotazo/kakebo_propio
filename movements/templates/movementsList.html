@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %} Romanos {% endblock %}
+
+{% block mi_precioso_bloque_de_formato %}
+    
+    {% if datos|length > 0 %}
+        <table>
+            <caption>Ingresos mensuales</caption>
+            <tr>
+                <th>Fecha</th>
+                <th>Concepto</th>
+                <th>Importe/Guita</th>
+                <th>Modificar/Borrar</th>
+            </tr>
+        {% for registro in datos %}
+            <tr>
+                <td>{{ registro['fecha'] }}</td>
+                <td>{{ registro['concepto'] }}</td>
+                <td>{{ registro['cantidad'] }}€</td>
+                <td>
+                <a href="modifica/{{ registro['id'] }}" class="buttontab">&#9998;</a>
+                <a href="delete/{{ registro['id'] }}" class="buttontab">&#10006;</a>
+                </td>
+            </tr>
+        {% endfor %}
+            <tr>
+                <td colspan="4">Total: {{total}}€</td>
+            </tr>
+        </table>
+        <br>
+        <a href="creaalta" class="buttona">Nuevo</a><br><br>
+    {% else %}
+        <p>No hay movimientos. crea el tuyo</p>
+        <a href="creaalta">Nuevo</a>
+        
+    {% endif %}
+    {% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %} Borrar {% endblock %}
+
+{% block mi_precioso_bloque_de_formato %}
+
+    <h2 class="title">Borrar Registro</h2>
+
+    <form action="{{ registro[0]['id'] }}" method="POST" novalidate>
+
+        <p>Se va a borrar el siguiente registro:</p>
+        <p>{{ registro[0]['fecha'] }} - {{registro[0]['concepto'] }} - {{registro[0]['cantidad'] }}</p>
+        <p>¿Está usted seguro?</p>
+        {{ form.submit }} <a href="{{ url_for('listaIngresos') }}">Volver</a>
+
+    </form>
+
+{%  endblock %}
