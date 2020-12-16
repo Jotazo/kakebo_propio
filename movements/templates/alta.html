@@ -8,9 +8,9 @@
     <form action="creaalta" method="POST" novalidate>
         {{ form.csrf_token }}
         <div class="form-field">
-            {{ form.fx.label }}
-            {{ form.fx }}
-            {% for error in form.fx.errors %}
+            {{ form.fecha.label }}
+            {{ form.fecha }}
+            {% for error in form.fecha.errors %}
                 <p>{{ error }}</p>
             {% endfor %}
         </div>

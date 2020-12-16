@@ -1,28 +1,42 @@
 from movements import app
-from flask import render_template, request, url_for, redirect
-import sqlite3
-from movements import forms as form
+from movements import forms
 from movements import bbdd
+from movements import misc
+
+from flask import render_template, request, url_for, redirect
+
+import sqlite3
+
+from datetime import date
 
 @app.route('/')
+@app.route('/fasc')
+@app.route('/fdesc')
+@app.route('/casc')
+@app.route('/cdesc')
+@app.route('/dasc')
+@app.route('/ddesc')
 def listaIngresos():
     bd = bbdd.BBDD()
 
-    ingresos = bd.query_select()
+    if request.full_path == '/?':
+        ingresos = bd.query_select()
+    else:
+        ingresos = misc.devuelve_query()
     total = 0
     for ingreso in ingresos:
-        total += float(ingreso['cantidad'])
+        total += ingreso['cantidad']
 
     return render_template("movementsList.html",datos=ingresos, total=round(total, 2))
 
 @app.route('/creaalta', methods=['GET', 'POST'])
 def nuevoIngreso():
-    nuestroForm = form.TaskForm()
+    nuestroForm = forms.TaskForm()
     bd = bbdd.BBDD()
 
     if request.method == 'POST' and nuestroForm.validate_on_submit():
 
-        datos = (nuestroForm.cantidad.data, nuestroForm.concepto.data, nuestroForm.fx.data)
+        datos = (nuestroForm.cantidad.data, nuestroForm.concepto.data, nuestroForm.fecha.data)
         bd.query_insert(datos)
 
         return redirect(url_for('listaIngresos'))
@@ -31,27 +45,41 @@ def nuevoIngreso():
 
 @app.route("/modifica/<id>", methods=['GET', 'POST'])
 def modificaIngreso(id):
-    nuestroForm = form.TaskForm()
+    
     bd = bbdd.BBDD()
 
-    if request.method =='POST' and nuestroForm.validate_on_submit():
+    if request.method == 'GET':
+
+        registro = bd.query_select(id='WHERE id=?', params=(id,))[0]
+        registro['fecha'] = date.fromisoformat(registro['fecha'])
+        nuestroForm = forms.TaskForm(data=registro)
+        print(nuestroForm.data)
+        return render_template("modifica.html", form=nuestroForm, id=id)
+
+    else:
+        nuestroForm = forms.TaskForm()
+        if nuestroForm.validate_on_submit():
     
-        datos = (nuestroForm.fx.data, nuestroForm.concepto.data, nuestroForm.cantidad.data, int(nuestroForm.idhidden.data))
-        bd.query_update(datos)
+            datos = (nuestroForm.fecha.data, nuestroForm.concepto.data, nuestroForm.cantidad.data, id)
+            bd.query_update(datos)
 
-        return redirect(url_for("listaIngresos"))
+            return redirect(url_for("listaIngresos"))
 
-    registro = bd.query_select(id='WHERE id=?', params=(id,))
-    return render_template("modifica.html", form=nuestroForm, registro=registro)
+        else:
+            return render_template('modifica.html', form=nuestroForm, id=id)
 
 @app.route("/delete/<id>", methods=['GET', 'POST'])
 def eliminaIngreso(id):
-    nuestroForm = form.TaskForm()
+    nuestroForm = forms.TaskForm()
     bd = bbdd.BBDD()
 
     if request.method == 'POST':
-        bd.query_delete(id)
+        bd.query_delete((id,))
         return redirect(url_for('listaIngresos'))
 
     registroBorrar = bd.query_select(id='WHERE id=?', params=(id,))
     return render_template("borrar.html", registro=registroBorrar, form=nuestroForm)
+
+@app.route('/ordenarporfecha/')
+def ordenarporfecha():
+    pass

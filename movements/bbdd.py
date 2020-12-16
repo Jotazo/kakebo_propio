@@ -22,6 +22,7 @@ class BBDD():
         self.conn.close()
 
     def query_select(self, id='', params=()):
+
         self.c.execute(f'SELECT fecha, concepto, cantidad, id FROM movimientos {id}', params)
         filas = self.c.fetchall()
         nombres = self.c.description
@@ -40,6 +41,19 @@ class BBDD():
         self.c.execute('DELETE FROM movimientos WHERE id=?', id)
         self.conn.commit()
         self.conn.close()
+    
+    def query_order_by(self, dato, desc=False):
+        if desc:
+            self.c.execute(f'SELECT * FROM movimientos ORDER BY {dato} DESC')
+        else:
+            self.c.execute(f'SELECT * FROM movimientos ORDER BY {dato}') 
+        filas = self.c.fetchall()
+        nombres = self.c.description
+        if len(filas) == 0:
+            return filas
+        d = self.__create_dic(nombres, filas)
+        self.conn.close()
+        return d
 
     def __create_dic(self, nombres, filas):
         columnNames = []

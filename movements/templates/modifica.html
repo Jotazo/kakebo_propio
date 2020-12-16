@@ -6,26 +6,25 @@
 
 <div class="formwrapper">
     <h2 class="title">Modifica Registro</h2>
-    <form action="{{ registro[0]['id'] }}" method="POST" novalidate>
+    <form action="/modifica/{{ id }}" method="POST" novalidate>
         {{ form.csrf_token }}
-        {{ form.idhidden(value=registro[0]['id']) }}
         <div class="form-field">
-            {{ form.fx.label }}
-            {{ form.fx(value=registro[0]['fecha']) }}
-            {% for error in form.fx.errors %}
+            {{ form.fecha.label }}
+            {{ form.fecha(type='date') }}
+            {% for error in form.fecha.errors %}
                 <p>{{ error }}</p>
             {% endfor %}
         </div>
         <div class="form-field">
             {{ form.concepto.label }}
-            {{ form.concepto(value=registro[0]['concepto']) }}
+            {{ form.concepto }}
             {% for error in form.concepto.errors %}
                 <p>{{ error }}</p>
             {% endfor %}
         </div>
         <div class="form-field">
             {{ form.cantidad.label }}
-            {{ form.cantidad(value=registro[0]['cantidad']) }}
+            {{ form.cantidad }}
             {% for error in form.cantidad.errors %}
                 <p>{{ error }}</p>
             {% endfor %} 

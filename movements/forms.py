@@ -7,14 +7,12 @@ import datetime
 class TaskForm(FlaskForm):
     empty = 'Debe completar este campo'
 
-    fx = DateField('Fecha:', validators=[DataRequired(empty)])
-    idhidden = HiddenField('id')
+    fecha = DateField('Fecha:', validators=[DataRequired(empty)])
     cantidad = FloatField('Cantidad:', validators=[DataRequired(empty)])
     concepto = StringField('Concepto:', validators=[DataRequired(empty)])
     submit = SubmitField('Enviar')
 
-    def validate_fx(self, field):
+    def validate_fecha(self, field):
         now = datetime.date.today()
-        if self.fx.data > now:
+        if self.fecha.data > now:
             raise ValidationError("Fecha incorrecta")
-
