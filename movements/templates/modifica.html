@@ -4,33 +4,28 @@
 
 {% block mi_precioso_bloque_de_formato %}
 
-<div class="formwrapper">
-    <h2 class="title">Modifica Registro</h2>
+    <h2 class="mid-title">Modifica Registro</h2>
+    <div class="div-form">
     <form action="/modifica/{{ id }}" method="POST" novalidate>
         {{ form.csrf_token }}
-        <div class="form-field">
-            {{ form.fecha.label }}
-            {{ form.fecha(type='date') }}
-            {% for error in form.fecha.errors %}
-                <p>{{ error }}</p>
-            {% endfor %}
-        </div>
-        <div class="form-field">
-            {{ form.concepto.label }}
-            {{ form.concepto }}
-            {% for error in form.concepto.errors %}
-                <p>{{ error }}</p>
-            {% endfor %}
-        </div>
-        <div class="form-field">
-            {{ form.cantidad.label }}
-            {{ form.cantidad }}
-            {% for error in form.cantidad.errors %}
-                <p>{{ error }}</p>
-            {% endfor %} 
-        </div>
+        {{ form.fecha.label(class="form-label") }}
+        {{ form.fecha(type='date', class="form-input") }}
+        {% for error in form.fecha.errors %}
+            <p class="p-error">{{ error }}</p>
+        {% endfor %}
+        {{ form.concepto.label(class="form-label") }}
+        {{ form.concepto(class="form-input") }}
+        {% for error in form.concepto.errors %}
+            <p class="p-error">{{ error }}</p>
+        {% endfor %}
+        {{ form.cantidad.label(class="form-label") }}
+        {{ form.cantidad(class="form-input") }}
+        {% for error in form.cantidad.errors %}
+            <p class="p-error">{{ error }}</p>
+        {% endfor %} 
         {{ form.submit }}
+        <a href="{{ url_for('listaIngresos') }}" role="button">Volver</a>
     </form>
-</div>
+    </div>
 
 {%  endblock %}

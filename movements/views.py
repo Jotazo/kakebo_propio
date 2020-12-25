@@ -10,24 +10,19 @@ import sqlite3
 from datetime import date
 
 @app.route('/')
-@app.route('/fasc')
-@app.route('/fdesc')
-@app.route('/casc')
-@app.route('/cdesc')
-@app.route('/dasc')
-@app.route('/ddesc')
-def listaIngresos():
+@app.route('/<tipo>')
+def listaIngresos(tipo='/?'):
     bd = bbdd.BBDD()
 
-    if request.full_path == '/?':
-        ingresos = bd.query_select()
-    else:
+    if tipo in misc.l_tipos:
         ingresos = misc.devuelve_query()
+    else:
+        ingresos = bd.query_select()
     total = 0
     for ingreso in ingresos:
         total += ingreso['cantidad']
 
-    return render_template("movementsList.html",datos=ingresos, total=round(total, 2))
+    return render_template("movementsList.html",datos=ingresos, total=round(total, 2), tipo=tipo)
 
 @app.route('/creaalta', methods=['GET', 'POST'])
 def nuevoIngreso():
@@ -79,7 +74,3 @@ def eliminaIngreso(id):
 
     registroBorrar = bd.query_select(id='WHERE id=?', params=(id,))
     return render_template("borrar.html", registro=registroBorrar, form=nuestroForm)
-
-@app.route('/ordenarporfecha/')
-def ordenarporfecha():
-    pass

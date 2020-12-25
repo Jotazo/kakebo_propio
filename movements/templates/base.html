@@ -4,18 +4,32 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Mi Kakebo - {% block title %}{% endblock %}</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+        <!-- FONTS -->
+        <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet"> <!--Mi Kakebo-->
+        <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet"> <!--Form Labels-->
+        <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Pacifico&display=swap" rel="stylesheet"> <!--Form Inputs-->
+        <link href="https://fonts.googleapis.com/css2?family=Acme&display=swap" rel="stylesheet"><!--Mid titles-->
+        <!-- STYLES -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/pico.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/movementsList.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/alta-modif.css') }}">
     </head>
+
     <body>
-        <header>
-            <p>Mi Kakebo</p>
-        </header>
+        <div class="div-general">
+            <header class="titulo">
+                <h1 class="titulo-base">Mi Kakebo</h1>
+            </header>
 
-        <section>
-            {% block mi_precioso_bloque_de_formato %}{% endblock %}
-        </section>
+            <section>
+                {% block mi_precioso_bloque_de_formato %}{% endblock %}
+            </section>
 
-        <footer>
+        </div>
+
+        <footer class="derechos">
             &copy; 2020 - 2021. Todos los derechos reservados
         </footer>
     </body>

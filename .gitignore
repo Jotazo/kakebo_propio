@@ -3,6 +3,6 @@ __pycache__/
 movements/__pycache__/
 .env
 .vscode/
-movements/data/
+movements/data/DBFLASK.db
 config.py
-
+conf.py

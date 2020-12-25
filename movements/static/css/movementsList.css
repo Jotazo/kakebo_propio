@@ -1,0 +1,37 @@
+.titulo-mov{
+    text-align: center;
+    margin: 0px;
+}
+
+table { 
+	width: 100%; 
+    border-collapse: collapse; 
+    
+}
+/* Zebra striping */
+tr:nth-of-type(odd) { 
+    background: #EBECED;
+}
+
+tr:nth-of-type(even){
+    background: white;
+}
+th { 
+	background: #333; 
+	color: white; 
+	font-weight: bold; 
+}
+td, th { 
+	padding: 6px; 
+    border: 1px solid #ccc; 
+    text-align: center;
+}
+
+section {
+    margin: 0px;
+}
+
+.p-null{
+    font-size: 30px;
+    font-family: 'Dancing Script', cursive;
+}

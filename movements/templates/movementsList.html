@@ -5,12 +5,13 @@
 {% block mi_precioso_bloque_de_formato %}
     
     {% if datos|length > 0 %}
-        <table>
-            <caption>Ingresos mensuales</caption>
+    <div class="div">
+        <table class="table table-success table-striped table-sm table-bordered">
+            <h3 class="mid-title">Ingresos mensuales</h3> 
             <tr>
-                <th>Fecha <a href="fasc" class="buttontab">&#9044;</a> <a href="fdesc" class="buttontab">&#9037;</a></th>
-                <th>Concepto <a href="casc" class="buttontab">&#9044;</a> <a href="cdesc" class="buttontab">&#9037;</a></th>
-                <th>Importe/Guita <a href="dasc" class="buttontab">&#9044;</a> <a href="ddesc" class="buttontab">&#9037;</a></th>
+                <th>Fecha <a href="fasc">&#9044;</a> <a href="fdesc">&#9037;</a></th>
+                <th>Concepto <a href="casc">&#9044;</a> <a href="cdesc">&#9037;</a></th>
+                <th>Importe/Guita <a href="dasc">&#9044;</a> <a href="ddesc">&#9037;</a></th>
                 <th>Modificar/Borrar</th>
             </tr>
         {% for registro in datos %}
@@ -19,20 +20,27 @@
                 <td>{{ registro['concepto'] }}</td>
                 <td>{{ registro['cantidad'] }}€</td>
                 <td>
-                <a href="modifica/{{ registro['id'] }}" class="buttontab">&#9998;</a>
-                <a href="delete/{{ registro['id'] }}" class="buttontab">&#10006;</a>
+                <a href="modifica/{{ registro['id'] }}">&#9998;</a>
+                <a href="delete/{{ registro['id'] }}">&#10006;</a>
                 </td>
             </tr>
         {% endfor %}
             <tr>
                 <td colspan="4">Total: {{total}}€</td>
             </tr>
+        
+            
+
         </table>
-        <br>
-        <a href="creaalta" class="buttona">Nuevo</a><br><br>
+        <a href="creaalta" role="button">Nuevo Ingreso</a>
+        
+    </div>
+
+    
+        
     {% else %}
-        <p>No hay movimientos. crea el tuyo</p>
-        <a href="creaalta">Nuevo</a>
+        <p class="p-null">No hay movimientos. crea el tuyo</p>
+        <a href="creaalta" role="button">Nuevo</a>
         
     {% endif %}
     {% endblock %}

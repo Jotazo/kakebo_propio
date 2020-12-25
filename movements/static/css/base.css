@@ -1,0 +1,29 @@
+.titulo,
+.titulo-base {
+    padding: 0px;
+    margin: 0px;
+
+}
+
+.titulo-base{
+    font-family: 'Lobster', cursive;
+    text-align: center;
+    font-size: 80px;
+    text-shadow: 5px 5px 5px black;
+}
+
+.div-general {
+    width: 850px;
+    text-align: center;
+    align-content: center;
+    margin: 0px auto;
+}
+
+footer{
+    text-align: center;
+}
+
+body {
+    background-image: url("../img/moroccan-flower.png");
+    min-height: 750px;
+}
